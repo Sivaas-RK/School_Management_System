@@ -31,8 +31,7 @@ public class ClassHour {
 	private LocalDateTime endsAt;
 	private int roomNo;
 
-	@Enumerated(EnumType.STRING)
-	private ClassStatus classStatus;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "academicProgramId")

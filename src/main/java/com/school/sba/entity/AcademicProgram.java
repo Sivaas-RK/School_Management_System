@@ -31,8 +31,7 @@ public class AcademicProgram {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int programId;
 
-	@Enumerated(EnumType.STRING)
-	private ProgramType programType;
+
 	private String programName;
 	private LocalDate programBeginsAt;
 	private LocalDate programEndsAt;
