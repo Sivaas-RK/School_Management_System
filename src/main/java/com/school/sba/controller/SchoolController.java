@@ -1,0 +1,57 @@
+package com.school.sba.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.school.sba.util.ResponseStructure;
+
+@RestController
+
+public class SchoolController {
+	
+	@Autowired
+	private ISchoolService schoolService;
+		
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("/users/schools")
+	public ResponseEntity<ResponseStructure<SchoolResponse>> saveSchool(@RequestBody SchoolRequest schoolRequest){
+		return schoolService.saveSchool(schoolRequest);
+
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PutMapping("/{schoolId}")
+	public ResponseEntity<ResponseStructure<SchoolResponse>> updateSchool(@PathVariable Integer schoolId, @RequestBody SchoolRequest schoolRequest){
+		return schoolService.updateSchool(schoolId, schoolRequest);
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@DeleteMapping("schools/{schoolId}")
+	public ResponseEntity<ResponseStructure<SchoolResponse>> softDeleteSchool(@PathVariable Integer schoolId) {
+		ResponseEntity<ResponseStructure<SchoolResponse>> deleteSchool = null;
+
+		deleteSchool = schoolService.softDeleteSchool(schoolId);
+
+		return deleteSchool;
+	}
+	
+//	@GetMapping("/{schoolId}")
+//	public ResponseEntity<ResponseStructure<School>> findSchool(@PathVariable Integer schoolId){
+//		return schoolService.findSchool(schoolId);
+//	}
+
+//	@GetMapping
+//	public ResponseEntity<ResponseStructure<List<School>>> findAllSchool(){
+//		return schoolService.findAllSchool();
+//	}
+	
+	
+	
+}

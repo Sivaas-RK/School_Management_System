@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.school.sba.entity.Subject;
+import com.school.sba.repository.ISubjectRepository;
+import com.school.sba.requestdto.SubjectRequest;
+import com.school.sba.responsedto.SubjectResponse;
 import com.school.sba.service.ISubjectService;
 import com.school.sba.util.ResponseStructure;
 

@@ -62,6 +62,30 @@ public class UserController {
 			@RequestBody UserRequest userRequest){
 		return userService.updateUser(userId, userRequest);
 	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PutMapping("/academic-programs/{programId}/users/{userId}")
+	public ResponseEntity<ResponseStructure<UserResponse>> addUserToProgram(@PathVariable Integer programId,
+			@PathVariable Integer userId){
+		ResponseEntity<ResponseStructure<UserResponse>> AssignUser=null;;
+		AssignUser = userService.assignUserToProgram(programId,userId);
+		return AssignUser;
+			
+	}
+	
+
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PutMapping("/subjects/{subjectId}/users/{userId}")
+	public ResponseEntity<ResponseStructure<UserResponse>> assignSubjectToTeacher(@PathVariable("subjectId") int subjectId,
+			@PathVariable("userId") int userId){
+		return userService.assignSubjectToTeacher(subjectId,userId);
+	}
+	
+	@GetMapping("/academic-programs/{programId}/user-roles/{role}/users")
+	public ResponseEntity<ResponseStructure<List<UserResponse>>> getUsersByRoleAndAcademicProgram(@PathVariable("programId") int programId,
+			@PathVariable String role){
+		return userService.getUsersByRoleAndAcademicProgram(programId, role);
+	}
 
 
 }
